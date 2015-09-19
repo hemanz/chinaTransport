@@ -9,6 +9,7 @@
 #import "TransprotHeadlineViewController.h"
 #import "NewsTableViewController.h"
 #import "SXTitleLable.h"
+#import "PPRevealSideViewController.h"
 
 
 #define TITLE_BUTTON_SPACE_BETWEEN wid/11
@@ -62,7 +63,16 @@
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _bigScrollView.contentSize = CGSizeMake(contentX, 0);
     _bigScrollView.pagingEnabled = YES;
+    [self createNavbar];
     // Do any additional setup after loading the view.
+}
+-(void)createNavbar {
+    [self addimage:nil title:@"我的" selector:@selector(MineItem) location:YES];
+}
+
+- (void) MineItem{
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+
 }
 
 

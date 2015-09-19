@@ -10,6 +10,7 @@
 #import "HomeController.h"
 #import "PPRevealSideViewController.h"
 #import "LeftScrollController.h"
+#import "TransprotHeadlineViewController.h"
 #define kNavigatPicWidth 100
 #define kNavigatPicHeigh 35
 @interface AppDelegate ()<UIScrollViewDelegate>
@@ -51,7 +52,8 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     LeftScrollController *leftScrollVC =[[LeftScrollController alloc] init];
     HomeController *homeController =[[HomeController alloc] init];
-    UINavigationController *nav =[[UINavigationController alloc] initWithRootViewController:homeController];
+    TransprotHeadlineViewController *thVC = [[TransprotHeadlineViewController alloc] init];
+    UINavigationController *nav =[[UINavigationController alloc] initWithRootViewController:thVC];
     ppRevealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
     [ppRevealSideVC setPanInteractionsWhenClosed:PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView];
     [ppRevealSideVC preloadViewController:leftScrollVC forSide:PPRevealSideDirectionLeft];

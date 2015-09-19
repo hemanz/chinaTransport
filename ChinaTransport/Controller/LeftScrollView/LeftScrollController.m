@@ -13,6 +13,11 @@
 #import "InfoViewController.h"
 #import "LoginViewController.h"
 #import "RoadStatusController.h"
+#import "PPRevealSideViewController.h"
+#import "FeedbackViewController.h"
+#import "AboutusViewController.h"
+#import "cainaViewController.h"
+
 @interface LeftScrollController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *mineTableView;
@@ -35,24 +40,30 @@
 }
 -(void)createTableView{
     //添加tableview
-    mineTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, wid, heigh)];
+    mineTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, wid-30, heigh)];
     [mineTableView setDelegate:self];
     [mineTableView setDataSource:self];
     mineTableView.showsHorizontalScrollIndicator=NO;
-    mineTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    mineTableView.backgroundColor=RGBACOLOR(233, 245, 248, 1);
+//    mineTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    UIImageView *bgSlideView =  [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wid-30, heigh)];
+    [bgSlideView setImage:[UIImage imageNamed:@"slide_image1"]];
+    mineTableView.backgroundView = bgSlideView;
+    UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [mineTableView setTableFooterView:v];
+
     [self.view addSubview:mineTableView];
 }
 
 #pragma mark - tableView
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"self.dataSource.count::%ld",self.dataSource.count);
-    return self.dataSource.count;
+    NSLog(@"self.dataSource.count::%ld",(unsigned long)self.dataSource.count);
+    return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"[self.dataSource[section] count]::%ld",[self.dataSource[section] count]);
+    NSLog(@"[self.dataSource[section] count]::%ld",(unsigned long)[self.dataSource[section] count]);
     return [self.dataSource[section] count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,110 +72,75 @@
     UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:cellId];
     UITableViewCellStyle cellStyle;
     cellStyle = UITableViewCellStyleDefault;
-    if (indexPath.section == 0 ) {
-        cellStyle = UITableViewCellStyleSubtitle;
-    }else if(indexPath.section== 1){
-        cellStyle = UITableViewCellStyleValue1;
-    }
+    
+//    if (indexPath.section == 0 ) {
+//        cellStyle = UITableViewCellStyleValue1;
+//    }else if(indexPath.section== 1){
+//        cellStyle = UITableViewCellStyleValue1;
+//    }
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:cellStyle reuseIdentifier:cellId];
     }
+    cell.backgroundColor = [UIColor clearColor];
     NSLog(@"dataSource:%@",self.dataSource);
 //    NSMutableDictionary *sectionDictionary =self.dataSource[indexPath.section][indexPath.row];
     NSMutableDictionary *sectionDictionary = self.dataSource[indexPath.section][indexPath.row];
     NSString *title =[sectionDictionary objectForKey:@"title"];
     NSString *image =[sectionDictionary objectForKey:@"image"];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont fontWithName:@"MingLiU" size:1];
     if(title){
         cell.textLabel.text = title;
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    头像的cell判断是否是登陆状态
-    if (indexPath.section ==0) {
-        //先删除该cell的subview，防止由于循环利用cell导致不断addsubview头像所在的UIImageView
-        for(UIView * view in cell.subviews){
-            if([view isKindOfClass:[UIImageView class]])
-            {
-                [view removeFromSuperview];
-            }
-        }
-         // 如果已登录
-        if (self.userInfoData.isLogin) {
-            UIImageView *avatarImgView = [[UIImageView alloc] initWithFrame:CGRectMake(23, 7, 60, 60)];
-            avatarImgView.layer.cornerRadius = 30;
-            avatarImgView.layer.masksToBounds =YES;
-            avatarImgView.contentMode =  UIViewContentModeScaleAspectFill;
-            if([UserInfoData isBlankString :self.userInfoData.avatar]){
-                avatarImgView.image = [UIImage imageNamed:@"我的_登录后"];
-            }else{
-            
-                NSString * imgUrl=[@"" stringByAppendingString:self.userInfoData.avatar];
-                avatarImgView.image=nil;
-                [avatarImgView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
-            }
-        //  昵称
-            NSString *nickname;
-            if ([UserInfoData isBlankString:self.userInfoData.nickname]) {
-                nickname =@"点击修改昵称";
-            } else{
-                nickname = self.userInfoData.nickname;
-            }
-            cell.textLabel.text = nickname;
-            cell.imageView.image = [UIImage imageNamed:@"我的_登录后"];
-            cell.imageView.backgroundColor = [UIColor blueColor];
-            cell.imageView.frame =CGRectMake(0, 0, 2, 70) ;
-            [cell addSubview:avatarImgView];
 
-
-        }
-        //如果未登录
-        else{
-            cell.imageView.image = [UIImage imageNamed:image];
-            cell.detailTextLabel.text=@"hello";
-        }
-
-    }else{
-        cell.imageView.image = [UIImage imageNamed:image];
-    }
+    cell.imageView.image = [UIImage imageNamed:image];
+    
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0) {
-        return 205;
-    }else{
-        return 50;
-    }
+    
+    return 50;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 1;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==0) {
-        return 1;
-    }
-    return 14;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    return 1;
+//}
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    if (section==0) {
+//        return 1;
+//    }
+//    return 14;
+//}
 //cell点击的效果
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if(indexPath.section == 0 &&indexPath.row == 0){
-        if (self.userInfoData.isLogin) {
-            InfoViewController *infoVC = [[InfoViewController alloc]init];
-            infoVC.hidesBottomBarWhenPushed=YES;
-//            infoVC.delegate=self;
-            [self.navigationController pushViewController:infoVC animated:YES];
-        }else{
-            LoginViewController *loginVC = [[LoginViewController alloc]init];
-//            loginVC.delegate=self;
-//            loginVC.isVisual=YES;
-            UINavigationController * loginNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
-            [self presentViewController:loginNav animated:YES completion:nil];
-        }
+       
+//            InfoViewController *infoVC = [[InfoViewController alloc]init];
+//            infoVC.hidesBottomBarWhenPushed=YES;
+////            infoVC.delegate=self;
+//            [self.navigationController pushViewController:infoVC animated:YES];
+            [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+
+        
     }
-    if (indexPath.section ==1 && indexPath.row ==0) {
-        RoadStatusController *roadStatusVC =[[RoadStatusController alloc] init];
-        UINavigationController *NVC =[[UINavigationController alloc] initWithRootViewController:roadStatusVC];
+    if (indexPath.section ==0 && indexPath.row ==1) {
+        FeedbackViewController *feedBVC =[[FeedbackViewController alloc] init];
+        UINavigationController *NVC =[[UINavigationController alloc] initWithRootViewController:feedBVC];
+        [self presentViewController:NVC animated:YES completion:nil];
+    }
+    if (indexPath.section ==0 && indexPath.row ==2) {
+        cainaViewController *cvc =[[cainaViewController alloc] init];
+        UINavigationController *NVC =[[UINavigationController alloc] initWithRootViewController:cvc];
+        [self presentViewController:NVC animated:YES completion:nil];
+    }
+    if (indexPath.section ==0 && indexPath.row ==3) {
+        AboutusViewController *cvc =[[AboutusViewController alloc] init];
+        UINavigationController *NVC =[[UINavigationController alloc] initWithRootViewController:cvc];
         [self presentViewController:NVC animated:YES completion:nil];
     }
 }

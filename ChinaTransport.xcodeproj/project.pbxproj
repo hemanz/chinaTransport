@@ -29,6 +29,9 @@
 		63FCD44D1B9BD701009DF02A /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD44C1B9BD701009DF02A /* RegistViewController.m */; };
 		63FCD4511B9BE74C009DF02A /* RoadStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD4501B9BE74C009DF02A /* RoadStatusController.m */; };
 		D94C3B9C1B9D37260080080C /* TransprotHeadlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94C3B9A1B9D37260080080C /* TransprotHeadlineViewController.m */; };
+		D95ABF481BAD65AA00417C0A /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF421BAD65AA00417C0A /* FeedbackViewController.m */; };
+		D95ABF491BAD65AA00417C0A /* AboutusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF461BAD65AA00417C0A /* AboutusViewController.m */; };
+		D95ABF4A1BAD65AA00417C0A /* cainaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF471BAD65AA00417C0A /* cainaViewController.m */; };
 		D98DAB951B9E809100342204 /* NewsURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = D98DAB941B9E809100342204 /* NewsURLs.plist */; };
 		D98DAB981B9EB26F00342204 /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98DAB971B9EB26F00342204 /* NewsTableViewController.m */; };
 		D98DAB9B1B9EB66500342204 /* SXTitleLable.m in Sources */ = {isa = PBXBuildFile; fileRef = D98DAB9A1B9EB66500342204 /* SXTitleLable.m */; };
@@ -98,6 +101,12 @@
 		63FCD4501B9BE74C009DF02A /* RoadStatusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoadStatusController.m; path = Controller/RoadStatus/RoadStatusController.m; sourceTree = "<group>"; };
 		D94C3B9A1B9D37260080080C /* TransprotHeadlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransprotHeadlineViewController.m; path = Controller/TransprotHeadline/TransprotHeadlineViewController.m; sourceTree = "<group>"; };
 		D94C3B9B1B9D37260080080C /* TransprotHeadlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransprotHeadlineViewController.h; path = Controller/TransprotHeadline/TransprotHeadlineViewController.h; sourceTree = "<group>"; };
+		D95ABF421BAD65AA00417C0A /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		D95ABF431BAD65AA00417C0A /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		D95ABF441BAD65AA00417C0A /* AboutusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutusViewController.h; sourceTree = "<group>"; };
+		D95ABF451BAD65AA00417C0A /* cainaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cainaViewController.h; sourceTree = "<group>"; };
+		D95ABF461BAD65AA00417C0A /* AboutusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutusViewController.m; sourceTree = "<group>"; };
+		D95ABF471BAD65AA00417C0A /* cainaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cainaViewController.m; sourceTree = "<group>"; };
 		D98DAB941B9E809100342204 /* NewsURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NewsURLs.plist; sourceTree = "<group>"; };
 		D98DAB961B9EB26F00342204 /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsTableViewController.h; path = Controller/TransprotHeadline/NewsTableViewController.h; sourceTree = "<group>"; };
 		D98DAB971B9EB26F00342204 /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsTableViewController.m; path = Controller/TransprotHeadline/NewsTableViewController.m; sourceTree = "<group>"; };
@@ -250,6 +259,7 @@
 		63035D661B94392F000F9F9E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D95ABF411BAD657200417C0A /* More */,
 				D94C3B961B9D369C0080080C /* TransprotHeadline */,
 				63FCD44E1B9BE6C8009DF02A /* RoadStatus */,
 				63BEE33E1B95A9D400C336A2 /* LeftScrollController */,
@@ -380,6 +390,19 @@
 				D9F447791BA7B1D6006AE0F3 /* NewsWebView.m */,
 			);
 			name = TransprotHeadline;
+			sourceTree = "<group>";
+		};
+		D95ABF411BAD657200417C0A /* More */ = {
+			isa = PBXGroup;
+			children = (
+				D95ABF421BAD65AA00417C0A /* FeedbackViewController.m */,
+				D95ABF431BAD65AA00417C0A /* FeedbackViewController.h */,
+				D95ABF441BAD65AA00417C0A /* AboutusViewController.h */,
+				D95ABF451BAD65AA00417C0A /* cainaViewController.h */,
+				D95ABF461BAD65AA00417C0A /* AboutusViewController.m */,
+				D95ABF471BAD65AA00417C0A /* cainaViewController.m */,
+			);
+			name = More;
 			sourceTree = "<group>";
 		};
 		D98DABA11BA164EB00342204 /* TransprotHeadlineModel */ = {
@@ -550,6 +573,8 @@
 				63BEE2FE1B95724200C336A2 /* NSFileManager+pathMethod.m in Sources */,
 				63BEE3411B95AA0100C336A2 /* LeftScrollController.m in Sources */,
 				63035C771B93EB6C000F9F9E /* main.m in Sources */,
+				D95ABF481BAD65AA00417C0A /* FeedbackViewController.m in Sources */,
+				D95ABF491BAD65AA00417C0A /* AboutusViewController.m in Sources */,
 				63BEE2F81B95493400C336A2 /* MyControl.m in Sources */,
 				63DBED0B1B969C6700E9F40C /* UserInfoData.m in Sources */,
 				63FCD4511B9BE74C009DF02A /* RoadStatusController.m in Sources */,
@@ -560,6 +585,7 @@
 				D9F447761BA43224006AE0F3 /* CycleScrollView.m in Sources */,
 				63035D7B1B9455E2000F9F9E /* Url.m in Sources */,
 				63BEE33D1B9595C900C336A2 /* HomeController.m in Sources */,
+				D95ABF4A1BAD65AA00417C0A /* cainaViewController.m in Sources */,
 				63DBED111B96F10E00E9F40C /* InfoViewController.m in Sources */,
 				63BEE2F51B95489A00C336A2 /* NSString+Hashing.m in Sources */,
 				63FCD44D1B9BD701009DF02A /* RegistViewController.m in Sources */,

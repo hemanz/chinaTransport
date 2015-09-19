@@ -27,25 +27,29 @@
     NSString *titleKey = @"title";
     NSString *imageKey = @"image";
     NSMutableDictionary *mineDic =[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"点击登录",titleKey,@"我的_登录后",imageKey, nil];
-    [baseDataArray addObject:@[mineDic]];
+//    [baseDataArray addObject:@[mineDic]];
     
     NSMutableArray *rowForSecArray = [[NSMutableArray alloc] initWithCapacity:1];
-    for (NSInteger i=0; i<3; i++)
+    for (NSInteger i=0; i<4; i++)
     {
         NSString *title;
         NSString *image;
         switch (i) {
             case 0:
-                title = @"周杰伦";
-                image = @"我的_登录后";
+                title = @"首页";
+                image = @"home";
                 break;
             case 1:
-                title = @"陈奕迅";
-                image = @"我的_登录后";
+                title = @"意见与建议";
+                image = @"意见与建议";
                 break;
             case 2:
-                title = @"王攀登";
-                image = @"我的_登录后";
+                title = @"求好评";
+                image = @"求好评";
+                break;
+            case 3:
+                title = @"关于我们";
+                image = @"关于我们";
                 break;
                 
             default:

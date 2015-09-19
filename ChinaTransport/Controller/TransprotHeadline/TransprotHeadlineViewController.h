@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TransprotHeadlineViewController : UIViewController
+#import "RootViewController.h"
+@interface TransprotHeadlineViewController : RootViewController
 
 @end

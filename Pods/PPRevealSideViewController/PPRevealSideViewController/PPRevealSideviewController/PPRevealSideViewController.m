@@ -12,7 +12,7 @@
 #import <PPHelpMe/PPHelpMe.h>
 
 #pragma mark - Unit constants
-static const CGFloat DefaultOffset                   = 70.0f;
+static const CGFloat DefaultOffset                   = 130.0f;
 static const CGFloat DefaultOffsetBouncing           = 5.0f;
 static const CGFloat OpenAnimationTime               = 0.3f;
 static const CGFloat OpenAnimationTimeBouncingRatio  = 0.3f;
