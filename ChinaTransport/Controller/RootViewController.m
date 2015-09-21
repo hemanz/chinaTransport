@@ -16,12 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgColor"]];
  
 //    创建Nav样式
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"导航_nav.png"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor purpleColor]];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"导航_nav.png"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar  setBackgroundImage:[UIImage imageNamed:@"bgColor"] forBarMetrics:UIBarMetricsDefault ];
 //    Controller的基调
-    self.view.backgroundColor = RGBACOLOR(233, 245, 248, 1);
+//    self.view.backgroundColor = RGBACOLOR(233, 245, 248, 1);
 }
 
 //      导航栏的title
@@ -31,7 +32,7 @@
     UILabel *label =[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
     label.text = title;
     label.font = [UIFont systemFontOfSize:21];
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [UIColor blackColor];
     label.textAlignment = NSTextAlignmentCenter;
     self.navigationItem.titleView = label;
     
@@ -44,11 +45,14 @@
     [btn setImage:image forState:UIControlStateNormal];
     [btn setTitle:title forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    btn.titleLabel.textColor = [UIColor redColor];
     [btn addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *item =[[UIBarButtonItem alloc] initWithCustomView:btn];
     if (isLeft == YES) {
+//        item.tintColor = [UIColor blackColor];
         self.navigationItem.leftBarButtonItem = item;
+
     }else{
         self.navigationItem.rightBarButtonItem = item;
     }

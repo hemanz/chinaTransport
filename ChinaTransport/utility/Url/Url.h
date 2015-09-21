@@ -11,4 +11,7 @@
 @interface Url : NSObject
 + (NSString *)GetTransportHeadLineURLWithPage:(NSInteger)page PageSize:(NSString *)Size ContentType:(NSString *)Type;
 
++(NSString *)FeedBackUrl:(NSString *)mphone withFeedBack:(NSString *)feedBack;
+
+
 @end

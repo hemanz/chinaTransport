@@ -13,6 +13,5 @@
 /**
  *  关于我们的VC
  */
-@interface AboutusViewController : RootViewController<UITableViewDataSource,UITableViewDelegate>
-
+@interface AboutusViewController : RootViewController
 @end

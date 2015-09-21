@@ -134,9 +134,8 @@
         [self presentViewController:NVC animated:YES completion:nil];
     }
     if (indexPath.section ==0 && indexPath.row ==2) {
-        cainaViewController *cvc =[[cainaViewController alloc] init];
-        UINavigationController *NVC =[[UINavigationController alloc] initWithRootViewController:cvc];
-        [self presentViewController:NVC animated:YES completion:nil];
+        NSString * strLoc =@"itms-apps://itunes.apple.com/app/id1041769608";
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strLoc]];
     }
     if (indexPath.section ==0 && indexPath.row ==3) {
         AboutusViewController *cvc =[[AboutusViewController alloc] init];

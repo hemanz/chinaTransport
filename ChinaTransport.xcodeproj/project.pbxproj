@@ -29,9 +29,9 @@
 		63FCD44D1B9BD701009DF02A /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD44C1B9BD701009DF02A /* RegistViewController.m */; };
 		63FCD4511B9BE74C009DF02A /* RoadStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD4501B9BE74C009DF02A /* RoadStatusController.m */; };
 		D94C3B9C1B9D37260080080C /* TransprotHeadlineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94C3B9A1B9D37260080080C /* TransprotHeadlineViewController.m */; };
-		D95ABF481BAD65AA00417C0A /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF421BAD65AA00417C0A /* FeedbackViewController.m */; };
-		D95ABF491BAD65AA00417C0A /* AboutusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF461BAD65AA00417C0A /* AboutusViewController.m */; };
 		D95ABF4A1BAD65AA00417C0A /* cainaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF471BAD65AA00417C0A /* cainaViewController.m */; };
+		D95ABF551BAE95EC00417C0A /* AboutusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF511BAE95EC00417C0A /* AboutusViewController.m */; };
+		D95ABF561BAE95EC00417C0A /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D95ABF521BAE95EC00417C0A /* FeedbackViewController.m */; };
 		D98DAB951B9E809100342204 /* NewsURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = D98DAB941B9E809100342204 /* NewsURLs.plist */; };
 		D98DAB981B9EB26F00342204 /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D98DAB971B9EB26F00342204 /* NewsTableViewController.m */; };
 		D98DAB9B1B9EB66500342204 /* SXTitleLable.m in Sources */ = {isa = PBXBuildFile; fileRef = D98DAB9A1B9EB66500342204 /* SXTitleLable.m */; };
@@ -101,12 +101,12 @@
 		63FCD4501B9BE74C009DF02A /* RoadStatusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoadStatusController.m; path = Controller/RoadStatus/RoadStatusController.m; sourceTree = "<group>"; };
 		D94C3B9A1B9D37260080080C /* TransprotHeadlineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransprotHeadlineViewController.m; path = Controller/TransprotHeadline/TransprotHeadlineViewController.m; sourceTree = "<group>"; };
 		D94C3B9B1B9D37260080080C /* TransprotHeadlineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TransprotHeadlineViewController.h; path = Controller/TransprotHeadline/TransprotHeadlineViewController.h; sourceTree = "<group>"; };
-		D95ABF421BAD65AA00417C0A /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		D95ABF431BAD65AA00417C0A /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
-		D95ABF441BAD65AA00417C0A /* AboutusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutusViewController.h; sourceTree = "<group>"; };
 		D95ABF451BAD65AA00417C0A /* cainaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cainaViewController.h; sourceTree = "<group>"; };
-		D95ABF461BAD65AA00417C0A /* AboutusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutusViewController.m; sourceTree = "<group>"; };
 		D95ABF471BAD65AA00417C0A /* cainaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cainaViewController.m; sourceTree = "<group>"; };
+		D95ABF511BAE95EC00417C0A /* AboutusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutusViewController.m; path = Controller/More/AboutusViewController.m; sourceTree = "<group>"; };
+		D95ABF521BAE95EC00417C0A /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackViewController.m; path = Controller/More/FeedbackViewController.m; sourceTree = "<group>"; };
+		D95ABF531BAE95EC00417C0A /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackViewController.h; path = Controller/More/FeedbackViewController.h; sourceTree = "<group>"; };
+		D95ABF541BAE95EC00417C0A /* AboutusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutusViewController.h; path = Controller/More/AboutusViewController.h; sourceTree = "<group>"; };
 		D98DAB941B9E809100342204 /* NewsURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NewsURLs.plist; sourceTree = "<group>"; };
 		D98DAB961B9EB26F00342204 /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsTableViewController.h; path = Controller/TransprotHeadline/NewsTableViewController.h; sourceTree = "<group>"; };
 		D98DAB971B9EB26F00342204 /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsTableViewController.m; path = Controller/TransprotHeadline/NewsTableViewController.m; sourceTree = "<group>"; };
@@ -395,11 +395,11 @@
 		D95ABF411BAD657200417C0A /* More */ = {
 			isa = PBXGroup;
 			children = (
-				D95ABF421BAD65AA00417C0A /* FeedbackViewController.m */,
-				D95ABF431BAD65AA00417C0A /* FeedbackViewController.h */,
-				D95ABF441BAD65AA00417C0A /* AboutusViewController.h */,
+				D95ABF511BAE95EC00417C0A /* AboutusViewController.m */,
+				D95ABF521BAE95EC00417C0A /* FeedbackViewController.m */,
+				D95ABF531BAE95EC00417C0A /* FeedbackViewController.h */,
+				D95ABF541BAE95EC00417C0A /* AboutusViewController.h */,
 				D95ABF451BAD65AA00417C0A /* cainaViewController.h */,
-				D95ABF461BAD65AA00417C0A /* AboutusViewController.m */,
 				D95ABF471BAD65AA00417C0A /* cainaViewController.m */,
 			);
 			name = More;
@@ -476,6 +476,7 @@
 				TargetAttributes = {
 					63035C701B93EB6C000F9F9E = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = PE83F38V9B;
 					};
 					63035C891B93EB6C000F9F9E = {
 						CreatedOnToolsVersion = 6.4;
@@ -565,6 +566,7 @@
 				D94C3B9C1B9D37260080080C /* TransprotHeadlineViewController.m in Sources */,
 				D98DABA71BA165A700342204 /* THeadLineNewsModel.m in Sources */,
 				63035D781B9455CF000F9F9E /* Netmanager.m in Sources */,
+				D95ABF561BAE95EC00417C0A /* FeedbackViewController.m in Sources */,
 				D9F4477A1BA7B1D6006AE0F3 /* NewsWebView.m in Sources */,
 				D98DAB9B1B9EB66500342204 /* SXTitleLable.m in Sources */,
 				63035C7A1B93EB6C000F9F9E /* AppDelegate.m in Sources */,
@@ -573,9 +575,8 @@
 				63BEE2FE1B95724200C336A2 /* NSFileManager+pathMethod.m in Sources */,
 				63BEE3411B95AA0100C336A2 /* LeftScrollController.m in Sources */,
 				63035C771B93EB6C000F9F9E /* main.m in Sources */,
-				D95ABF481BAD65AA00417C0A /* FeedbackViewController.m in Sources */,
-				D95ABF491BAD65AA00417C0A /* AboutusViewController.m in Sources */,
 				63BEE2F81B95493400C336A2 /* MyControl.m in Sources */,
+				D95ABF551BAE95EC00417C0A /* AboutusViewController.m in Sources */,
 				63DBED0B1B969C6700E9F40C /* UserInfoData.m in Sources */,
 				63FCD4511B9BE74C009DF02A /* RoadStatusController.m in Sources */,
 				D98DAB981B9EB26F00342204 /* NewsTableViewController.m in Sources */,
@@ -640,7 +641,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guoguangtongtu(Beijing) Media Technology Co. Ltd. (PE83F38V9B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guoguangtongtu(Beijing) Media Technology Co. Ltd. (PE83F38V9B)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -662,6 +664,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "2cddcab6-8951-4f92-81f4-e56dcb97dcdd";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -684,7 +687,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guoguangtongtu(Beijing) Media Technology Co. Ltd. (PE83F38V9B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guoguangtongtu(Beijing) Media Technology Co. Ltd. (PE83F38V9B)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -699,6 +703,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "2cddcab6-8951-4f92-81f4-e56dcb97dcdd";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -710,11 +715,14 @@
 			baseConfigurationReference = 46BFA3604E2A5BCAA06A3C5C /* Pods-ChinaTransport.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = ChinaTransport/PrefixHeader.pch;
 				INFOPLIST_FILE = ChinaTransport/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2cddcab6-8951-4f92-81f4-e56dcb97dcdd";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -724,11 +732,14 @@
 			baseConfigurationReference = F8FAC7F8BE8CA0FFA2DC3E8A /* Pods-ChinaTransport.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PREFIX_HEADER = ChinaTransport/PrefixHeader.pch;
 				INFOPLIST_FILE = ChinaTransport/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2cddcab6-8951-4f92-81f4-e56dcb97dcdd";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -49,6 +49,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, wid, heigh)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgColor"]];
 //    [self.view addSubview:self.tableView];
     
 //    
@@ -62,7 +63,7 @@
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, wid, 150)];
     scrollView.delegate = self;
     scrollView.contentSize = CGSizeMake(wid,0);
-    scrollView.backgroundColor = [UIColor whiteColor];
+    scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgColor"]];
     self.tableView.tableHeaderView = scrollView;
     scrollArray = [[NSMutableArray alloc] init];
     
@@ -80,6 +81,7 @@
 {
     // http://c.m.163.com//nc/article/headline/T1348647853363/0-30.html
     NSString *allUrlstring = [Url GetTransportHeadLineURLWithPage:0 PageSize:@"10" ContentType:self.urlString];
+    
     [self loadDataForType:1 withURL:allUrlstring];
 }
 
@@ -151,11 +153,11 @@
     HeadLineNewsCell *cell = [[HeadLineNewsCell alloc] init];
     NSInteger reUseId = [HeadLineNewsCell idForRow:newsModel];
     cell = [tableView dequeueReusableCellWithIdentifier:@"textNewsCell"];
-
     if (cell == nil){
         NSArray *nibArray = [[NSBundle mainBundle] loadNibNamed:@"testCell" owner:self options:nil];
         cell = (HeadLineNewsCell *)[nibArray objectAtIndex:reUseId];
-    
+//        cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgColor"]];
+        cell.backgroundColor = [UIColor clearColor];
     }
 
     cell.newsModel = newsModel;
@@ -174,7 +176,7 @@
     for (NSInteger i=0; i<scrollArray.count; i++) {
         THeadLineNewsModel *model =scrollArray[i];
         UIImageView *picImgView =[[UIImageView alloc] initWithFrame:CGRectMake(i*wid, 0,wid, 150)];
-        UILabel *scrollLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 125, wid, 20)];
+        UILabel *scrollLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 125, wid-10, 20)];
         [scrollLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
         scrollLable.textColor = [UIColor whiteColor];
         scrollLable.text = model.title;

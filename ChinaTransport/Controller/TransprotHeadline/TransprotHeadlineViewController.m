@@ -49,6 +49,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addTiTle:@"- 交通头条 -"];
+    [self createNavbar];
+
+    UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgColor"]];
+    //    bgView = [UIImageView in]
+    [self.view addSubview:bgView];
     [self creatScrollView];
     [self addController];
     [self addLable];
@@ -63,11 +69,14 @@
     CGFloat contentX = self.childViewControllers.count * [UIScreen mainScreen].bounds.size.width;
     _bigScrollView.contentSize = CGSizeMake(contentX, 0);
     _bigScrollView.pagingEnabled = YES;
-    [self createNavbar];
+    
+   
     // Do any additional setup after loading the view.
 }
 -(void)createNavbar {
-    [self addimage:nil title:@"我的" selector:@selector(MineItem) location:YES];
+//    [self addimage:nil title:@"我的" selector:@selector(MineItem) location:YES];
+    [self addimage:[UIImage imageNamed:@"back-icon"] title:nil selector:@selector(MineItem) location:YES ];
+
 }
 
 - (void) MineItem{
@@ -111,15 +120,16 @@
 
 
 - (void)creatScrollView{
-    _titleScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, wid, 35)];
+    _titleScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, wid, 35)];
     _titleScrollView.backgroundColor = [UIColor whiteColor];
     _titleScrollView.userInteractionEnabled = YES;
     _titleScrollView.directionalLockEnabled = YES;
     _titleScrollView.showsHorizontalScrollIndicator = NO;
     _titleScrollView.showsVerticalScrollIndicator = NO;
+    _titleScrollView.backgroundColor = [UIColor clearColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64+35, wid, heigh-64-35)];
+    _bigScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0+35, wid, heigh-64-35)];
     _bigScrollView.backgroundColor = [UIColor whiteColor];
    
     _bigScrollView.delegate = self;

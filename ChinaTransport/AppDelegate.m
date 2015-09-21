@@ -32,12 +32,9 @@
 
     isOut =NO;
     isHasFile =[[NSUserDefaults standardUserDefaults] boolForKey:@"key_login"];
-    if (isHasFile) {
-        [self goHomeController];
-    }else{
-        [self pregoHomeController];
-    }
     
+    [self goHomeController];
+        
     
     
     
@@ -55,7 +52,7 @@
     TransprotHeadlineViewController *thVC = [[TransprotHeadlineViewController alloc] init];
     UINavigationController *nav =[[UINavigationController alloc] initWithRootViewController:thVC];
     ppRevealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:nav];
-    [ppRevealSideVC setPanInteractionsWhenClosed:PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView];
+//    [ppRevealSideVC setPanInteractionsWhenClosed:PPRevealSideInteractionNavigationBar|PPRevealSideInteractionContentView];
     [ppRevealSideVC preloadViewController:leftScrollVC forSide:PPRevealSideDirectionLeft];
     self.window.rootViewController = ppRevealSideVC;
 }

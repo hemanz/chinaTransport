@@ -8,6 +8,7 @@
 
 #import "Url.h"
 
+
 @implementation Url
 
 
@@ -25,10 +26,18 @@
 }
 
 + (NSString *)GetTransportHeadLineURLWithPage:(NSInteger)page PageSize:(NSString *)Size ContentType:(NSString *)Type{
-    NSString *str = [NSString stringWithFormat:@"%@pagesize=%@&newstype=%@&page=%lu",KUrl,Size,Type,(long)page];
-    return str;
+    NSString *str = [NSString stringWithFormat:@"?pagesize=%@&newstype=%@&page=%ld",Size,Type,page];
+    return [self GetURL:@"queryTops" withParam:str];
 }
-
-
++(NSString *)FeedBackUrl:(NSString *)mphone withFeedBack:(NSString *)feedBack{
+    NSString *str = [NSString stringWithFormat:@"?contactinfo=%@&advice=%@",mphone,feedBack];
+    return [self GetRadioHostURL:@"feedback" withParam:str];
+    
+}
+//  蓝鲸的feedback
++(NSString *)GetRadioHostURL:(NSString *)methodName withParam:(NSString *)param{
+    return [NSString stringWithFormat:@"%@/%@/ios/%@/%.1f%@",kHostAddr,methodName,kCURRENT_UUID,kCURRENT_APP_VERSION,param];
+    
+}
 
 @end
