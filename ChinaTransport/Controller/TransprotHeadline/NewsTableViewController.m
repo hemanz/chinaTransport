@@ -120,6 +120,9 @@
             [self.arrayList addObjectsFromArray:arrayM];
             
             [self.tableView.footer endRefreshing];
+            if(arrayM.count==0){
+                [self.tableView.footer noticeNoMoreData];
+            }
             [self.tableView reloadData];
         }
 
@@ -165,6 +168,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     THeadLineNewsModel *newsModel = self.arrayList[indexPath.row];
     NewsWebView *webView = [[NewsWebView alloc] init];
     webView.url = newsModel.htmlurl;
@@ -177,6 +181,8 @@
         THeadLineNewsModel *model =scrollArray[i];
         UIImageView *picImgView =[[UIImageView alloc] initWithFrame:CGRectMake(i*wid, 0,wid, 150)];
         UILabel *scrollLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 125, wid-10, 20)];
+        UIImageView *behandTextView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 125,wid, 40)];
+        behandTextView.image = [UIImage imageNamed:@"underGroundImage"];
         [scrollLable setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
         scrollLable.textColor = [UIColor whiteColor];
         scrollLable.text = model.title;
@@ -187,6 +193,7 @@
         NSString *url = model.litpic[0];
         [picImgView sd_setImageWithURL:[NSURL URLWithString:url]placeholderImage:[UIImage imageNamed:@"definePicture2"]];
         [array addObject:picImgView];
+        [picImgView addSubview:behandTextView];
         [picImgView addSubview:scrollLable];
         
     }

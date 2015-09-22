@@ -28,6 +28,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
+    [self addTiTle:@"-交通头条-"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -41,7 +42,7 @@
 
 - (void) viewDidLoad{
     [super viewDidLoad];
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, wid, heigh)];
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, wid, heigh-60)];
     [self.view addSubview:webView];
     _progressProxy = [[NJKWebViewProgress alloc] init];
     webView.delegate = _progressProxy;
