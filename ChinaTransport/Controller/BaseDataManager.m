@@ -7,6 +7,7 @@
 //
 
 #import "BaseDataManager.h"
+#import "DBManager.h"
 
 @implementation BaseDataManager
 
@@ -26,8 +27,8 @@
     NSMutableArray *baseDataArray =[[NSMutableArray alloc]initWithCapacity:1];
     NSString *titleKey = @"title";
     NSString *imageKey = @"image";
-    NSMutableDictionary *mineDic =[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"点击登录",titleKey,@"我的_登录后",imageKey, nil];
-//    [baseDataArray addObject:@[mineDic]];
+//    NSMutableDictionary *mineDic =[[NSMutableDictionary alloc] initWithObjectsAndKeys:@"点击登录",titleKey,@"我的_登录后",imageKey, nil];
+    //    [baseDataArray addObject:@[mineDic]];
     
     NSMutableArray *rowForSecArray = [[NSMutableArray alloc] initWithCapacity:1];
     for (NSInteger i=0; i<4; i++)
@@ -40,7 +41,7 @@
                 image = @"home";
                 break;
             case 1:
-                title = @"意见与建议";
+                title = @"意见反馈";
                 image = @"意见与建议";
                 break;
             case 2:
@@ -114,6 +115,47 @@
     [findPwdArray addObject:rows];
     return findPwdArray;
     
+}
+//   路况数据库的省份
+-(NSMutableArray *)getProvinceData{
+    NSMutableArray *provinceArray =[[NSMutableArray alloc] initWithCapacity:1];
+    DBManager *dbmanager =[DBManager shareRecordingDBManager];
+   provinceArray =[dbmanager loadregionProvinceData];
+    return provinceArray;
+}
+//   路况数据库的城市
+-(NSMutableArray *)getProvinceAndCiteDatawithValue:(NSString *)value{
+       NSMutableArray *cityDataArray = [[NSMutableArray alloc] initWithCapacity:1];
+        DBManager *dbmanager =[DBManager shareRecordingDBManager];
+        NSMutableArray *arr =[dbmanager loadregionCityData];
+        for (NSDictionary* dic in arr) {
+            if ([[[dic objectForKey:@"number"] substringToIndex:2] isEqualToString:value]) {
+                [cityDataArray addObject:dic];
+                
+            }
+        }
+    return cityDataArray;
+    
+}
+//  违章数据库的省份
+-(NSMutableArray *)getWeizhangProvinceData{
+    NSMutableArray *provinceArray =[[NSMutableArray alloc] initWithCapacity:1];
+    DBManager *dbmanager =[DBManager shareRecordingDBManager];
+    provinceArray =[dbmanager loadWeizhangProvinceData];
+    return provinceArray;
+}
+
+-(NSMutableArray *)getWeizhangCityProvinceAndCiteDatawithValue:(NSString *)value{
+    NSMutableArray *cityDataArray = [[NSMutableArray alloc] initWithCapacity:1];
+    DBManager *dbmanager =[DBManager shareRecordingDBManager];
+    NSMutableArray *arr =[dbmanager loadweizhangCityData];
+    for (NSDictionary* dic in arr) {
+        if ([[[dic objectForKey:@"number"] substringToIndex:2] isEqualToString:value]) {
+            [cityDataArray addObject:dic];
+            
+        }
+    }
+    return cityDataArray;
 }
 
 @end

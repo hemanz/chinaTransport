@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "44062C5FFFA647BD6247894D"
+               BlueprintIdentifier = "DD9C1E9F134FB27220732042"
                BuildableName = "libPPRevealSideViewController.a"
                BlueprintName = "PPRevealSideViewController"
                ReferencedContainer = "container:Pods.xcodeproj">

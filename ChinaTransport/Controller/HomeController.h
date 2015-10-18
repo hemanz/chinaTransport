@@ -7,7 +7,8 @@
 //
 
 #import "RootViewController.h"
+#import "CycleScrollView.h"
 
 @interface HomeController : RootViewController
-
+@property (nonatomic , retain) CycleScrollView *mainScorllView;
 @end

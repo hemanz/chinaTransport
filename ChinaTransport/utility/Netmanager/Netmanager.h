@@ -17,5 +17,5 @@ typedef void (^DownloadFailedBlock) (NSString *errorMsg);
 //post请求
 +(void)PostRequestWithUrlString:(NSString *)urlString parms:(NSDictionary *)dic finished:(DownloadFinishedBlock)finishedBlock failed:(DownloadFailedBlock)failedBlock;
 //get请求
-+(void)GetRequestWithUrlString:(NSString *)urlString  finished:(DownloadFinishedBlock)finishedBlock failed:(DownloadFinishedBlock)failedBlock;
++(void)GetRequestWithUrlString:(NSString *)urlString  finished:(DownloadFinishedBlock)finishedBlock failed:(DownloadFailedBlock)failedBlock;
 @end

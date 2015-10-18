@@ -8,6 +8,9 @@
 
 #import "RoadStatusController.h"
 #import "MJRefresh.h"
+#import "CityTableViewController.h"
+#import "RoadStatusmodel.h"
+#import "RoadStatusCell.h"
 
 @interface RoadStatusController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -19,238 +22,232 @@
     NSMutableArray *nowRoadDataArray;  //实时路况的dataArray
     NSMutableArray *speedRoadDataArray;  //高速公路的dataArray
     NSMutableArray *roadTrafficDataArray;  //公路交通的dataArray
-    UILabel *scrLabel; //滑动到Label
+    UILabel *scrLabel; //滑动的Label
     BOOL isScroll;    //scroll的bool值
     NSString *sizeString;
+//    MJRefreshHeader *headerFresh; //刷新的header
+//    MJRefreshFooter *footerFresh; //刷新的footer
+    NSString *cityNum;  //城市number
 }
+
+@property UILabel *scrLabel1;
 @end
 
 @implementation RoadStatusController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     
-    [self addTiTle:@"实时路况"];
-    [self addimage:nil title:@"back" selector:@selector(backClick) location:YES];
+//    speedRoadDataArray = [[NSMutableArray alloc] init];
+    [self addTiTle:@"- 实 时 路 况 - "];
+    [self rightItemwithtitle:@"北京市"];
     [self createUI];
-    sizeString = @"嗲级发布赴埃及法水泥覅哦我房间爱放那边发放那赎金风暴发放";
+    cityNum =@"110100";
+    [self requestDataCityid:cityNum type:@"2"];
 }
--(void)backClick{
-    [self dismissViewControllerAnimated:YES completion:nil];
+-(void)rightItemwithtitle:(NSString *)title
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 40, 40);
+    [btn setImage:[UIImage imageNamed:@"下箭头"] forState:UIControlStateNormal];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:RGBCOLOR(51, 51, 51) forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -38, 0, 0)];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    [btn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item =[[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = item;
+    
 }
+#pragma mark - RequestData
+-(void)requestDataCityid:(NSString *)cityid type:(NSString *)type{
+    //    初始化
+    nowRoadDataArray = [[NSMutableArray alloc] init];
+    NSString *UrlString = [Url RoadCondition:cityid andType:type];
+    NSLog(@"%@",UrlString);
+    [Netmanager GetRequestWithUrlString:UrlString finished:^(id responseobj) {
+        NSLog(@"%@",responseobj);
+        NSArray *array = responseobj[@"list"];
+        for (NSDictionary *subdic in array) {
+            RoadStatusmodel *model =[[RoadStatusmodel alloc] init];
+            model.pkid =subdic[@"pkid"];
+            model.status =subdic[@"status"];
+            model.content =subdic[@"content"];
+            model.time = subdic[@"time"];
+            if ([type isEqual:@"1"]) {
+               model.type =@"路况";
+            }else{
+               model.type =@"高速";
+            }
+            [nowRoadDataArray addObject:model];
+        }
+        NSLog(@"nowRoadArray:%@",nowRoadDataArray);
+        [nowRoadTableView reloadData];
+    } failed:^(NSString *errorMsg) {
+        NSLog(@"error:%@",errorMsg);
+    }];
+}
+#pragma mark - UIload
 -(void)createUI{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(go_cityName:) name:@"go_cityName" object:nil];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgColor"]];
 //               创建三个btn
     NSArray *arr = @[@"实时路况",@"高速公路",@"公路交通"];
     for (NSInteger i=0; i<arr.count; i++) {
-    
-        UIButton *roadButton =[MyControl createButtonWithFrame:CGRectMake(i*wid/arr.count, 64, wid/arr.count, 35) title:arr[i] titleColor:RGBCOLOR(85, 85, 85) imageName:nil bgImageName:nil target:self method:@selector(roadButtonClick:)];
-        [roadButton setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-        [roadButton setTitleColor:RGBCOLOR(185, 85, 85) forState:UIControlStateNormal];
+        UIButton *roadButton =[MyControl createButtonWithType:UIButtonTypeCustom Frame:CGRectMake(i*wid/arr.count, 0, wid/arr.count, 35) title:arr[i] titleColor:RGBCOLOR(51, 51, 51) imageName:nil bgImageName:nil target:self method:@selector(roadButtonClick:)];
+        [roadButton setTitleColor:RGBCOLOR(137, 86, 85) forState:UIControlStateSelected];
         roadButton.tag=201590611+i;
-        
-        if (i==0) {
-            roadButton.selected=YES;
-        }
         [self.view addSubview:roadButton];
-        
     }
 //          滑动的label
-    scrLabel = [[UILabel alloc] initWithFrame:CGRectMake(wid/3/2-65/2, 64+33, 65, 2)];
-    scrLabel.backgroundColor = RGBCOLOR(237, 88, 81);
+    scrLabel = [[UILabel alloc] initWithFrame:CGRectMake(wid/2-60/2, 36, 60, 4)];
+    scrLabel.backgroundColor = RGBCOLOR(137, 86, 85);
+    scrLabel.layer.masksToBounds = YES;
+    scrLabel.layer.cornerRadius =2;
     [self.view addSubview:scrLabel];
-    
-//         下半部分UI
-    bottomView =[[UIView alloc]initWithFrame:CGRectMake(0, 104, wid, heigh-64-50)];
-//         创建整个大的scrollView
-    scrView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, wid, heigh-64)];
-    scrView.contentSize = CGSizeMake(wid*3, 0);
-    scrView.showsHorizontalScrollIndicator = NO;
-    scrView.showsVerticalScrollIndicator = NO;
-    scrView.pagingEnabled =YES;
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
 //             nowRoadTableView
     if (!nowRoadTableView) {
-        nowRoadTableView  = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wid,heigh-64-45) style:UITableViewStylePlain];
+        nowRoadTableView  = [[UITableView alloc]initWithFrame:CGRectMake(0,50, wid,heigh-64-45) style:UITableViewStylePlain];
         nowRoadTableView.delegate = self;
         //    fansTabView.bounces = NO;
         nowRoadTableView.separatorStyle = NO; // 分割线
         nowRoadTableView.showsVerticalScrollIndicator = NO;
         nowRoadTableView.dataSource  =self;
-        nowRoadTableView.backgroundColor = [UIColor whiteColor];
-        
-        //[fansTabView setSeparatorColor:[UIColor redColor]]; 分割线颜色
-        //        [fansTabView addHeaderWithTarget:self action:@selector(fansHeaderfresh)];
-//        [nowRoadTableView addFooterWithTarget:self action:@selector(fansFootmore)];
-       
-        [scrView addSubview:nowRoadTableView];
+        nowRoadTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgColor"]];
+//        [nowRoadTableView setHeader:headerFresh];
+        [self.view addSubview:nowRoadTableView];
     }
-//             speedRoadTableView
-    if (!speedRoadTableView) {
-        //         zhufuTabView的tableView
-        speedRoadTableView  = [[UITableView alloc]initWithFrame:CGRectMake(wid, 0, wid,heigh-64-45) style:UITableViewStylePlain];
-        speedRoadTableView.delegate = self;
-        speedRoadTableView.separatorStyle = NO;  //分割线
-        speedRoadTableView.showsVerticalScrollIndicator = NO;
-        speedRoadTableView.dataSource  =self;
-        speedRoadTableView.backgroundColor = [UIColor grayColor];
-        //[zhufuTabView setSeparatorColor:[UIColor redColor]]; 分割线颜色
-        //        [zhufuTabView addHeaderWithTarget:self action:@selector(fuHeaderfresh)];
-//        [speedRoadTableView addFooterWithTarget:self action:@selector(fuFootmore)];
-        [scrView addSubview:speedRoadTableView];
-    }
-//       roadTrafficTableView
-    if (!roadTrafficTableView) {
-        roadTrafficTableView  = [[UITableView alloc]initWithFrame:CGRectMake(wid*2, 0, wid,heigh-35-10-64) style:UITableViewStylePlain];
-        roadTrafficTableView.delegate = self;
-        //huaTabView = NO;
-        //    huaTabView.separatorStyle = NO;  分割线
-        roadTrafficTableView.showsVerticalScrollIndicator = NO;
-        roadTrafficTableView.dataSource  =self;
-        //[huaTabView setSeparatorColor:[UIColor redColor]]; 分割线颜色
-        //        [huaTabView addHeaderWithTarget:self action:@selector(huaHeaderfresh)];
-//        [roadTrafficTableView addFooterWithTarget:self action:@selector(huaFootmore)];
-        [scrView addSubview:roadTrafficTableView];
-    }
+            __weak __typeof(self) weakSelf = self;
+//             设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+            nowRoadTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                [weakSelf loadNewData];
+            }];
+        // 马上进入刷新状态
+        [nowRoadTableView.header beginRefreshing];
+//        __weak __typeof(self) weakSelf = self;
+        // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+//        speedRoadTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//            [weakSelf loadMoreData];
+//        }];
+//     或
+//        speedRoadTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:<#(id)#> refreshingAction:<#(SEL)#>]
+//        [self.view addSubview:speedRoadTableView];
+//    }
+}
+#pragma mark - Click事件
+-(void)rightItemClick{
     
-    scrView.delegate = self;
-    [bottomView addSubview:scrView];
-    [self.view addSubview:bottomView];
-    
+    UIButton *nowRoadbtn =(UIButton *)[self.view viewWithTag:201590611];
+    NSString *postType;
+    if (nowRoadbtn.state == UIControlStateSelected) {
+        postType =[NSString stringWithFormat:@"%ld",nowRoadbtn.tag-201590610];
+    }
+    UIButton *speedbtn =(UIButton *)[self.view viewWithTag:201590612];
+    if (speedbtn.state == UIControlStateSelected) {
+        postType =[NSString stringWithFormat:@"%ld",speedbtn.tag-201590610];
+    }
+    CityTableViewController *cityVC = [[CityTableViewController alloc] init];
+    cityVC.postType = postType;
+    UINavigationController *nvc =[[UINavigationController alloc]initWithRootViewController:cityVC];
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+-(void)go_cityName:(NSNotification *)note{
+    NSString *cityName =[[note userInfo] objectForKey:@"cityName"];
+    NSString *postType =[[note userInfo] objectForKey:@"postType"];
+    cityNum =[[note userInfo] objectForKey:@"cityNum"];
+    [self rightItemwithtitle:cityName];
+    [self requestDataCityid:cityNum type:postType];
 }
 //         点击btn切换界面
 -(void)roadButtonClick:(UIButton *)btn{
-    
     for (NSInteger i=0; i<3; i++) {
         UIButton *btn =(UIButton *)[self.view viewWithTag:201590611+i];
         btn.selected = NO;
     }
     btn.selected = YES;
-    
+
     [UIView animateWithDuration:0.3 animations:^{
         CGPoint point = btn.frame.origin;
         //         label滑动代码
-        scrLabel.frame = CGRectMake(point.x+wid/3/2-65/2, 64+33, 65, 2);
+        scrLabel.frame = CGRectMake(point.x+wid/3/2-60/2, 33, 60, 4);
 
         //         点击Btn实现scrollView切换
         if (isScroll == NO) {
             scrView.contentOffset =CGPointMake((btn.tag-201590611)*wid, 0);
         }
     }];
-
+    
+    [self requestDataCityid:cityNum type:[NSString stringWithFormat:@"%ld",btn.tag-201590610]];
     
 }
-#pragma ScrollView
-//         滑动切换界面
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //    滑动触发三个按钮 和label 的滑动
-    if (scrView.contentOffset.x <wid/2) {
-        UIButton *btn =(UIButton *)[self.view viewWithTag:201590611];
-        isScroll =YES;
-        [self roadButtonClick:btn];
-    }
-    if (scrView.contentOffset.x>wid/2 && scrollView.contentOffset.x<wid*3/2) {
-        UIButton *btn =(UIButton *)[self.view viewWithTag:201590612];
-        isScroll =YES;
-        [self roadButtonClick:btn];
-    }
-    if (scrView.contentOffset.x>wid*3/2 && scrollView.contentOffset.x<wid*2) {
-        UIButton *btn =(UIButton *)[self.view viewWithTag:201590613];
-        isScroll =YES;
-        [self roadButtonClick:btn];
-    }
-    
-    isScroll =NO;
-}
-
 #pragma mark － TableView
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == nowRoadTableView) {
-        return nowRoadDataArray.count;
-    }else if(tableView == speedRoadTableView){
-//        return speedRoadDataArray.count;
-        return 12;
-    }else{
-        return roadTrafficDataArray.count;
-    }
+    return nowRoadDataArray.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *cellID;
-    if (tableView == nowRoadTableView) {
-        cellID =@"nowRoadTableViewCellID";
-    }else if(tableView == speedRoadTableView){
-        cellID =@"speedRoadTableViewCellID";
-    }else{
-        cellID =@"roadTrafficTableViewCellID";
-    }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    
+    cellID =@"nowRoadTableViewCellID";
+    RoadStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[RoadStatusCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    
-    for(UIView * view in cell.subviews){
-        if([view isKindOfClass:[UIImageView class]])
-        {
-            [view removeFromSuperview];
-        }
-    }
-//     cell上面的图片内容
-    UIImageView *topimgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 1, wid-20,44 )];
-    topimgView.image=[UIImage imageNamed:@"renqi的圆角矩形-1"];
-    [cell addSubview:topimgView];
-    UIImageView *imageView =[MyControl createImageViewFrame:CGRectMake(10, 10, 45, 24) imageName:@"立即体验"];
-    UILabel *titleLabel = [MyControl createLabelWithFrame:CGRectMake(CGRectGetMaxX(imageView.frame)+20, 14, 70, 20) text:@"交通畅通" font:17 textcolor:[UIColor blackColor] textAlignment:0 backgroundColor:nil];
-    UILabel *gaosuLabel =[MyControl createLabelWithFrame:CGRectMake(wid-20-20-100, 15, 30, 20) text:@"高速" font:13 textcolor:[UIColor grayColor] textAlignment:0 backgroundColor:nil];
-    UILabel *timeLable =[MyControl createLabelWithFrame:CGRectMake(wid-20-20-65, 15, 80, 20) text:@"08-31 07:42" font:13 textcolor:[UIColor grayColor] textAlignment:0 backgroundColor:nil];
-    [topimgView addSubview:imageView];
-    [topimgView addSubview:titleLabel];
-    [topimgView addSubview:gaosuLabel];
-    [topimgView addSubview:timeLable];
-//       cell下面的图片内容
-    
-    CGFloat height = [self getTextSize:sizeString];
-    UIImageView *botimgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 46, wid-20,height+15 )];
-    botimgView.image=[UIImage imageNamed:@"renqi的圆角矩形-1"];
-    UILabel *sizeStringLabel = [MyControl createLabelWithFrame:CGRectMake(10,5 , wid-40, height) text:sizeString font:18 textcolor:[UIColor grayColor] textAlignment:0 backgroundColor:nil];
-    [cell addSubview:botimgView];
-    [botimgView addSubview:sizeStringLabel];
-//
-//    CGSize size = CGSizeMake(CGFLOAT_MAX,20);//LableWight标签宽度，固定的
-//    //计算实际frame大小，并将label的frame变成实际大小
-//    UIFont *font =[UIFont systemFontOfSize:18 weight:50];
-//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil];
-
-    
-    if (tableView == speedRoadTableView) {
-
-
-    }
-    
+    RoadStatusmodel *model =nowRoadDataArray[indexPath.row];
+    cell.roadStatusmodel = model;
     
     cell.backgroundColor= [UIColor clearColor];
-//    cell.backgroundColor =RGBCOLOR(239, 239, 239);
     return cell;
 }
 //          返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%lf",[self getTextSize:sizeString]);
-    return 61+[self getTextSize:sizeString]+10;
+    RoadStatusmodel *model =nowRoadDataArray[indexPath.row];
+    return 61+[self getTextSize:model.content]+10;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark - fresh downmore
--(void)fansFootmore{
+- (void)loadNewData
+{
+    // 1.添加假数据
+//    for (int i = 0; i<5; i++) {
+//        [speedRoadDataArray insertObject:@"1" atIndex:0];
+//    }
+    
+//     2.模拟2秒后刷新表格UI（真实开发中，可以移除这段gcd代码）
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//         刷新表格
+        [nowRoadTableView reloadData];
+        
+//         拿到当前的下拉刷新控件，结束刷新状态
+        [nowRoadTableView.header endRefreshing];
+    });
 }
--(void)fuFootmore{
-}
--(void)huaFootmore{
-
-}
+//- (void)loadMoreData
+//{
+    // 1.添加假数据
+//    for (int i = 0; i<5; i++) {
+//        [speedRoadDataArray addObject:@"qweq"];
+//    }
+//    
+//    // 2.模拟2秒后刷新表格UI（真实开发中，可以移除这段gcd代码）
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        // 刷新表格
+//        [speedRoadTableView reloadData];
+//        
+//        // 拿到当前的上拉刷新控件，结束刷新状态
+//        [speedRoadTableView.footer endRefreshing];
+////        [speedRoadTableView.footer noticeNoMoreData];
+////        speedRoadTableView.footer.automaticallyChangeAlpha = YES;
+//        // 设置了底部inset
+//        speedRoadTableView.contentInset = UIEdgeInsetsMake(0, 0, -30, 0);
+//        // 忽略掉底部inset
+//        speedRoadTableView.footer.ignoredScrollViewContentInsetBottom = -30;
+//    });
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

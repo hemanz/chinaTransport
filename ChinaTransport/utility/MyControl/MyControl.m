@@ -15,6 +15,8 @@
     UIView *view =[[UIView alloc] initWithFrame:frame];
     if (color!=nil) {
         view.backgroundColor =color;
+    }else{
+        view.backgroundColor = [UIColor clearColor];
     }
     return view;
 }
@@ -41,16 +43,35 @@
     }
     if (backgroundColor) {
         label.backgroundColor =backgroundColor;
-    }else{
-        label.backgroundColor =[UIColor whiteColor];
+    }
+    else{
+        label.backgroundColor =[UIColor clearColor];
     }
     
     return label;
 }
++(UILabel *)createLabelWithtext:(NSString *)text font:(float)font textcolor:(UIColor *)color  backgroundColor:(UIColor *)backgroundColor{
+    UILabel*label=[[UILabel alloc]init];
+    label.font=[UIFont systemFontOfSize:font];
+    label.lineBreakMode=NSLineBreakByCharWrapping;
+    label.numberOfLines=0;
+    label.text=text;
+    label.textColor =color;
+       if (backgroundColor) {
+        label.backgroundColor =backgroundColor;
+    }
+    else{
+        label.backgroundColor =[UIColor clearColor];
+    }
+    
+    return label;
 
-+(UIButton*)createButtonWithFrame:(CGRect)frame title:(NSString*)title titleColor:(UIColor *)color imageName:(NSString*)imageName bgImageName:(NSString*)bgImageName target:(id)target method:(SEL)select
+}
+
++(UIButton*)createButtonWithType:(UIButtonType)ButtonType Frame:(CGRect)frame title:(NSString*)title titleColor:(UIColor *)color imageName:(NSString*)imageName bgImageName:(NSString*)bgImageName target:(id)target method:(SEL)select
 {
-    UIButton*button=[UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton*button=[UIButton buttonWithType:ButtonType];
+    
     button.frame=frame;
     [button setTitleColor:color forState:UIControlStateNormal];
     if (title) {
@@ -65,6 +86,18 @@
     [button addTarget:target action:select forControlEvents:UIControlEventTouchUpInside];
     return button;
 }
++(UIButton*)createButtontitle:(NSString*)title titleColor:(UIColor *)color target:(id)target method:(SEL)select
+{
+    UIButton*button=[UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitleColor:color forState:UIControlStateNormal];
+    if (title) {
+        [button setTitle:title forState:UIControlStateNormal];
+    }
+    button.backgroundColor = [UIColor whiteColor];
+    [button addTarget:target action:select forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
 +(UIImageView*)createImageViewFrame:(CGRect)frame imageName:(NSString*)imageName
 {
     UIImageView*imageView=[[UIImageView alloc]initWithFrame:frame];
@@ -79,6 +112,7 @@
     UITextField*textField=[[UITextField alloc]initWithFrame:frame];
     if (placeholder) {
         textField.placeholder=placeholder;
+        
     }
     if (imageName) {
         textField.background=[UIImage imageNamed:imageName];

@@ -10,13 +10,10 @@
 #import "BaseDataManager.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-#import "InfoViewController.h"
-#import "LoginViewController.h"
 #import "RoadStatusController.h"
-#import "PPRevealSideViewController.h"
 #import "FeedbackViewController.h"
 #import "AboutusViewController.h"
-#import "cainaViewController.h"
+#import "PPRevealSideViewController.h"
 
 @interface LeftScrollController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -31,6 +28,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     /**
      调取用户信息数据
      */
@@ -44,26 +43,27 @@
     [mineTableView setDelegate:self];
     [mineTableView setDataSource:self];
     mineTableView.showsHorizontalScrollIndicator=NO;
-//    mineTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    mineTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     UIImageView *bgSlideView =  [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, wid-30, heigh)];
     [bgSlideView setImage:[UIImage imageNamed:@"slide_image1"]];
     mineTableView.backgroundView = bgSlideView;
     UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
     
     [mineTableView setTableFooterView:v];
-
+    
     [self.view addSubview:mineTableView];
+
 }
 
 #pragma mark - tableView
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"self.dataSource.count::%ld",(unsigned long)self.dataSource.count);
+//    NSLog(@"self.dataSource.count::%ld",(unsigned long)self.dataSource.count);
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"[self.dataSource[section] count]::%ld",(unsigned long)[self.dataSource[section] count]);
+//    NSLog(@"[self.dataSource[section] count]::%ld",(unsigned long)[self.dataSource[section] count]);
     return [self.dataSource[section] count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,22 +73,22 @@
     UITableViewCellStyle cellStyle;
     cellStyle = UITableViewCellStyleDefault;
     
-//    if (indexPath.section == 0 ) {
-//        cellStyle = UITableViewCellStyleValue1;
-//    }else if(indexPath.section== 1){
-//        cellStyle = UITableViewCellStyleValue1;
-//    }
+    //    if (indexPath.section == 0 ) {
+    //        cellStyle = UITableViewCellStyleValue1;
+    //    }else if(indexPath.section== 1){
+    //        cellStyle = UITableViewCellStyleValue1;
+    //    }
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:cellStyle reuseIdentifier:cellId];
     }
     cell.backgroundColor = [UIColor clearColor];
-    NSLog(@"dataSource:%@",self.dataSource);
-//    NSMutableDictionary *sectionDictionary =self.dataSource[indexPath.section][indexPath.row];
+
+    //    NSMutableDictionary *sectionDictionary =self.dataSource[indexPath.section][indexPath.row];
     NSMutableDictionary *sectionDictionary = self.dataSource[indexPath.section][indexPath.row];
     NSString *title =[sectionDictionary objectForKey:@"title"];
     NSString *image =[sectionDictionary objectForKey:@"image"];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
-
+    
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont fontWithName:@"MingLiU" size:1];
     if(title){
@@ -96,7 +96,7 @@
     }
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+    
     cell.imageView.image = [UIImage imageNamed:image];
     
     return cell;
@@ -105,27 +105,13 @@
     
     return 50;
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    return 1;
-//}
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    if (section==0) {
-//        return 1;
-//    }
-//    return 14;
-//}
 //cell点击的效果
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if(indexPath.section == 0 &&indexPath.row == 0){
-       
-//            InfoViewController *infoVC = [[InfoViewController alloc]init];
-//            infoVC.hidesBottomBarWhenPushed=YES;
-////            infoVC.delegate=self;
-//            [self.navigationController pushViewController:infoVC animated:YES];
-            [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
-
+        [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+        
         
     }
     if (indexPath.section ==0 && indexPath.row ==1) {
@@ -134,7 +120,7 @@
         [self presentViewController:NVC animated:YES completion:nil];
     }
     if (indexPath.section ==0 && indexPath.row ==2) {
-        NSString * strLoc =@"itms-apps://itunes.apple.com/app/id1041769608";
+        NSString * strLoc =@"itms-apps://itunes.apple.com/app/id1041770950";
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strLoc]];
     }
     if (indexPath.section ==0 && indexPath.row ==3) {

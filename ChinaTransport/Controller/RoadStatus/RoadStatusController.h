@@ -9,5 +9,4 @@
 #import "RootViewController.h"
 
 @interface RoadStatusController : RootViewController
-
 @end

@@ -15,4 +15,5 @@
 -(void)alertView:(NSString *)message cancle:(NSString *)cancleMessage;
 -(NSString *)judgeArrayEmpty:(NSString *)str;
 -(NSString *)judgeDicEmpty:(NSDictionary *)dic str:(NSString *)str;
+- (BOOL) isBlankString:(NSString *)string;
 @end

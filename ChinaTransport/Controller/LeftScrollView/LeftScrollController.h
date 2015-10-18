@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 GuoguangGaoTong. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import <UIKit/UIKit.h>
 #import "UserInfoData.h"
 
-@interface LeftScrollController : RootViewController
+@interface LeftScrollController : UIViewController
 
 @property (nonatomic,strong)UserInfoData *userInfoData;
 @property (nonatomic, strong) NSMutableArray *dataSource;

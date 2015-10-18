@@ -4,14 +4,15 @@
 
 
 target 'ChinaTransport' do
-
-pod 'AFNetworking','2.5.4'
+pod 'AFNetworking'
 pod 'Masonry'
+
 pod 'Reachability'
 pod 'MJRefresh'
-pod 'MJExtension'
 pod 'PPRevealSideViewController'
-pod 'SDWebImage'
-pod 'NJKWebViewProgress'
 
+pod 'SDWebImage'
+pod 'FMDB'
+
+pod 'SVProgressHUD'
 end

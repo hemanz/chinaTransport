@@ -24,14 +24,20 @@
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
-// 0代表公司-正式-外网，1代表公司-正式-内网
-#define _APP_ENVIRMENT_ 0
+// 0代表公司-正式-外网，1代表公司-正式-内网 ，2代表阿里云-测试-外网
+#define _APP_ENVIRMENT_ 1
 
 
 #if ((_APP_ENVIRMENT_) == 0)
 #define kHostAddr  @"http://103.43.184.235:8080/sinot"
 #elif ((_APP_ENVIRMENT_) == 1)
 #define kHostAddr  @"http://192.168.3.1:8080/sinot"
+#elif ((_APP_ENVIRMENT_) == 2)
+#define kHostAddr  @"http://123.57.206.120:8080/sinot"
 #endif
+
+
+
+
 
 #endif

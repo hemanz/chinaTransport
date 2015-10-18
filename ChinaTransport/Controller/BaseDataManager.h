@@ -28,4 +28,12 @@
  *  手机注册
  */
 -(NSMutableArray *)getFindPwdBaseData;
+/**
+ *  实时路况的选择省份和城市
+ */
+-(NSMutableArray *)getProvinceData;
+-(NSMutableArray *)getProvinceAndCiteDatawithValue:(NSString *)value;
+   //违章数据库的城市
+-(NSMutableArray *)getWeizhangProvinceData;
+-(NSMutableArray *)getWeizhangCityProvinceAndCiteDatawithValue:(NSString *)value;
 @end
